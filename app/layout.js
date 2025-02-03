@@ -9,7 +9,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         {children}
+        <title>Shopping List</title>
       </body>
     </html>
   );
 }
+
+
+

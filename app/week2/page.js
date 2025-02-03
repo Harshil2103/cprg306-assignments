@@ -1,4 +1,5 @@
 import StudentInfo from "./studentinfo";
+import link from 'next/link';
 export default function Page() {
     return (
       <main>
