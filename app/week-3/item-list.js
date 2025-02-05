@@ -1,4 +1,4 @@
-// /app/week-3/item-list.js
+
 import Item from './item';
 
 const items = [
