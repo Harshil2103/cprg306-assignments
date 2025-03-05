@@ -27,7 +27,7 @@ export default function NewItem() {
         category: category,
         quantity: quantity,
       };
-
+        alert(Added item: ${name}, Category: ${category}, Quantity: ${quantity});
     console.log(item);
     setName("");
     setCategory("Produce");
