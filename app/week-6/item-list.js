@@ -1,27 +1,42 @@
+"use client";
 
+import { useState } from 'react';
 import Item from './item';
-
-const items = [
-  { name: "milk, 4 L 🥛", quantity: 1, category: "dairy" },
-  { name: "bread 🍞", quantity: 2, category: "bakery" },
-  { name: "eggs, dozen 🥚", quantity: 2, category: "dairy" },
-  { name: "bananas 🍌", quantity: 6, category: "produce" },
-  { name: "broccoli 🥦", quantity: 3, category: "produce" },
-  { name: "chicken breasts, 1 kg 🍗", quantity: 1, category: "meat" },
-  { name: "pasta sauce 🍝", quantity: 3, category: "canned goods" },
-  { name: "spaghetti, 454 g 🍝", quantity: 2, category: "dry goods" },
-  { name: "toilet paper, 12 pack 🧻", quantity: 1, category: "household" },
-  { name: "paper towels, 6 pack", quantity: 1, category: "household" },
-  { name: "dish soap 🍽️", quantity: 1, category: "household" },
-  { name: "hand soap 🧼", quantity: 4, category: "household" },
-];
+import items from './items.json';
 
 export default function ItemList() {
+  const [sortBy, setSortBy] = useState('name');
+
+  const sItems = [...items].sort((a, b) => {
+    if (sortBy === 'name') {
+      return a.name.localeCompare(b.name);
+    } else if (sortBy === 'category') {
+      return a.category.localeCompare(b.category);
+    }
+    return 0;
+  });
+
   return (
-    <ul className="space-y-2">
-      {items.map((item, index) => (
-        <Item key={index} {...item} />
-      ))}
-    </ul>
+    <div>
+      <div>
+        <button
+          className={`mr-2 p-4 ${sortBy === 'name' ? 'bg-green-500' : 'bg-orange-200'}`}
+          onClick={() => setSortBy('name')}
+        >
+        Name
+        </button>
+        <button
+          className={`p-4 ${sortBy === 'category' ? 'bg-green-500' : 'bg-orange-200'}`}
+          onClick={() => setSortBy('category')}
+        >
+        Category
+        </button>
+      </div>
+      <div>
+        {sItems.map((item) => (
+          <Item key={item.id} name={item.name} quantity={item.quantity} category={item.category} />
+        ))}
+      </div>
+    </div>
   );
 }

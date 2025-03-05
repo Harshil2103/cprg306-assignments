@@ -1,3 +1,4 @@
+import React from 'react';
 export default function Item({ name, quantity, category }) {
     return (
       <li className="py-2 px-4 border-b">
