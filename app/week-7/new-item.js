@@ -35,7 +35,7 @@ export default function NewItem() {
   };
 
   return (
-    <div className="flex justify-center p-4">
+    <div className="flex">
       <form
         onSubmit={handleSubmit}
         className="p-5"
