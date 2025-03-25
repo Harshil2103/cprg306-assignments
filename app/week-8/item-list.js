@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import Item from './item'; // Ensure Item is imported here
 
-
-export default function ItemList({ items }) {
+export default function ItemList({ items, onItemSelect }) {
   const [sortBy, setSortBy] = useState('name');
 
+  // Sort the items based on the selected sorting option
   const sortedItems = items
     .slice()
     .sort((a, b) => {
@@ -15,26 +16,9 @@ export default function ItemList({ items }) {
       return 0;
     });
 
-  const Style = {
-      listStyleType: 'none',
-      padding: 0,
-      margin: 0,
-    };
-
-  const itemstyle = {
-      backgroundColor: '#f8f9fa',
-      border: '1px solid #ddd',
-      padding: '10px',
-      margin: '5px 0',
-      borderRadius: '5px',
-      fontSize: '16px',
-    };
-
-  
-   
   return (
     <>
-      
+      {/* Sorting Buttons */}
       <div>
         <span className="mr-2">Sort by:</span>
         <button
@@ -50,11 +34,11 @@ export default function ItemList({ items }) {
           Category
         </button>
       </div>
-      <ul style={Style}>
+
+      {/* Render Sorted and Clickable Items */}
+      <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
         {sortedItems.map((item) => (
-          <li key={item.id} style={itemstyle}>
-            {item.name} <br></br>buy {item.quantity} in {item.category}
-          </li>
+          <Item key={item.id} item={item} onSelect={onItemSelect} /> // Pass the onSelect function to Item
         ))}
       </ul>
     </>
