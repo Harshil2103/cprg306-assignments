@@ -15,21 +15,7 @@ export default function ItemList({ items }) {
       return 0;
     });
 
-  const Style = {
-      listStyleType: 'none',
-      padding: 0,
-      margin: 0,
-    };
-
-  const itemstyle = {
-      backgroundColor: '#f8f9fa',
-      border: '1px solid #ddd',
-      padding: '10px',
-      margin: '5px 0',
-      borderRadius: '5px',
-      fontSize: '16px',
-    };
-
+  
   
    
   return (
@@ -50,13 +36,7 @@ export default function ItemList({ items }) {
           Category
         </button>
       </div>
-      <ul style={Style}>
-        {sortedItems.map((item) => (
-          <li key={item.id} style={itemstyle}>
-            {item.name} <br></br>buy {item.quantity} in {item.category}
-          </li>
-        ))}
-      </ul>
+      
     </>
   );
 }

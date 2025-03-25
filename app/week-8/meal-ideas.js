@@ -17,24 +17,24 @@ export default function MealIdeas({ ingredients }) {
       setError(null);
 
       try {
-        // Log ingredients being passed to the MealIdeas component
+        
         console.log("Ingredients passed to MealIdeas:", ingredients);
 
-        // Clean ingredients to remove non-alphanumeric characters (emoji, size, etc.)
+        
         const cleanedIngredients = ingredients.map((ingredient) =>
           ingredient.replace(/[^a-zA-Z0-9 ]/g, "").trim().toLowerCase()
         );
 
         console.log("Cleaned ingredients:", cleanedIngredients);
 
-        // Prepare API calls for each ingredient
+        
         const promises = cleanedIngredients.map((ingredient) =>
           fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
             .then((response) => response.json())
             .then((data) => {
-              console.log(`Response for ${ingredient}:`, data); // Log API response for each ingredient
+              console.log(`Response for ${ingredient}:`, data); 
               if (!data.meals) {
-                return []; // If no meals found for this ingredient, return empty array
+                return []; 
               }
               return data.meals;
             })
@@ -44,21 +44,21 @@ export default function MealIdeas({ ingredients }) {
             })
         );
 
-        // Wait for all API calls to finish
+        
         const results = await Promise.all(promises);
 
-        // Flatten all the meals from each ingredient and remove duplicates
+        
         const allMeals = results.flat();
-        console.log("All meals fetched:", allMeals); // Log to see the list of all fetched meals
+        console.log("All meals fetched:", allMeals); 
 
-        // Remove duplicate meals based on idMeal
+        
         const uniqueMeals = allMeals.filter(
           (meal, index, self) =>
             index === self.findIndex((m) => m.idMeal === meal.idMeal)
         );
-        console.log("Unique meals:", uniqueMeals); // Log to check unique meals after removing duplicates
+        console.log("Unique meals:", uniqueMeals); 
 
-        // Now fetch additional details (ingredients) for each unique meal
+        
         const mealDetailsPromises = uniqueMeals.map((meal) =>
           fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
             .then((response) => response.json())
@@ -74,12 +74,12 @@ export default function MealIdeas({ ingredients }) {
             })
         );
 
-        // Wait for all meal details to finish
+        
         const mealsWithIngredients = await Promise.all(mealDetailsPromises);
 
-        console.log("Meals with detailed ingredients:", mealsWithIngredients); // Log meals with ingredients
+        console.log("Meals with detailed ingredients:", mealsWithIngredients); 
 
-        // Now filter meals that match all selected ingredients
+        
         const filteredMeals = mealsWithIngredients.filter((meal) =>
           cleanedIngredients.every((ingredient) =>
             meal.ingredients.some((mealIngredient) =>
@@ -87,7 +87,7 @@ export default function MealIdeas({ ingredients }) {
             )
           )
         );
-        console.log("Filtered meals after matching ingredients:", filteredMeals); // Log final filtered meals
+        console.log("Filtered meals after matching ingredients:", filteredMeals); 
 
         setMeals(filteredMeals);
       } catch (err) {
@@ -175,6 +175,6 @@ const styles = `
 `;
 
 const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
+
 styleSheet.innerText = styles;
 document.head.appendChild(styleSheet);
