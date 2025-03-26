@@ -1,50 +1,33 @@
+// week-9/shopping-list/page.js
 "use client";
 
-import { useState } from "react";
-import NewItem from "./new-item";
-import ItemList from "./item-list";
-import MealIdeas from "./meal-ideas";  
-import itemsData from "./items.json";
+import { useUserAuth } from "../_utils/auth-context";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import ItemList from "./item-list"; // Import the ItemList component
+import itemsData from "../items.json"; // Import the items from your items.json file
 
-export default function Page() {
-  const [items, setItems] = useState(itemsData);
-  const [selectedItems, setSelectedItems] = useState([]); 
+export default function ShoppingListPage() {
+  const { user } = useUserAuth();
+  const router = useRouter();
+  const [items, setItems] = useState([]);
 
-  
-  function handleAddItem(newItem) {
-    setItems([...items, newItem]);
+  // If user is not logged in, redirect to landing page
+  if (!user) {
+    router.push("/"); // redirect to landing page if not logged in
+    return null; // Prevent page rendering
   }
 
-  
-  function handleItemSelect(itemName) {
-    setSelectedItems((prevSelectedItems) => {
-      
-      if (prevSelectedItems.includes(itemName)) {
-        return prevSelectedItems.filter(item => item !== itemName); 
-      } else {
-        return [...prevSelectedItems, itemName];
-      }
-    });
-  }
+  // Load items from the JSON file
+  useEffect(() => {
+    // Simulate loading items from the JSON file (itemsData is imported at the top)
+    setItems(itemsData);
+  }, []);
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ flex: 1 }}>
-        <h1 className="text-3xl font-bold mb-4">Shopping List</h1>
-        <NewItem onAddItem={handleAddItem} />
-        <ItemList items={items} onItemSelect={handleItemSelect} />  
-      </div>
-      <div style={{ flex: 2 }}>
-        
-        <h2 className="text-2xl font-semibold mb-4">
-          Meal Ideas: Here are some meal ideas using the selected ingredients:
-        </h2>
-
-        
-        {selectedItems.length > 0 && (
-          <MealIdeas ingredients={selectedItems} />
-        )}
-      </div>
+    <div>
+      <h1>Your Shopping List</h1>
+      <ItemList items={items} />
     </div>
   );
 }
