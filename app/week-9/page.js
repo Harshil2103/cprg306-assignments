@@ -17,7 +17,7 @@ export default function LandingPage() {
     );
   }
 
-  // If the user is logged in, show the welcome message and logout button
+ 
   return (
     <div>
       <h1>Welcome, {user.displayName || 'User'}!</h1>
