@@ -26,8 +26,8 @@ export default function LandingPage() {
         Sign out
       </button>
       <div>
-        <p>Click below to view your shopping list:</p>
-        <a href="/week-10/shopping-list" className="text-blue-500">Go to Shopping List</a>
+        
+        <a href="/week-10/shopping-list" className="text-blue-500">Go to your Shopping List</a>
       </div>
     </div>
   );
