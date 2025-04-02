@@ -43,11 +43,11 @@ useEffect(() => {
   };
   
   loadItems();
-}, [user?.uid]); // Dependency array ensures the effect runs when the user ID changes
+}, [user?.uid]); 
 
 const handleAddItem = async (newItem) => {
   if (user?.uid) {
     const itemId = await addItem(user.uid, newItem);
-    setItems([...items, { id: itemId, ...newItem }]); // Add the new item to state
+    setItems([...items, { id: itemId, ...newItem }]); 
   }
 };

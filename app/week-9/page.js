@@ -1,15 +1,15 @@
-"use client";  // Enable hook usage in Next.js
+"use client";  
 
-import { useUserAuth } from "./_utils/auth-context";  // Import the custom hook
+import { useUserAuth } from "./_utils/auth-context"; 
 
 export default function LandingPage() {
-  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();  // Destructure user, sign-in, and sign-out methods
+  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();  
 
-  // If the user is not logged in, show the login button
+  
   if (!user) {
     return (
       <div>
-        <h1>Welcome to the Landing Page</h1>
+        
         <button onClick={gitHubSignIn} className="bg-blue-500 text-white p-2 rounded">
           Sign in with GitHub
         </button>
